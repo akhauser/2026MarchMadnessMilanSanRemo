@@ -1,0 +1,357 @@
+:root {
+  --bg: #f2ece2;
+  --paper: rgba(255, 250, 242, 0.82);
+  --ink: #13201b;
+  --muted: #5f6f67;
+  --line: rgba(19, 32, 27, 0.12);
+  --accent: #c4512d;
+  --accent-soft: rgba(196, 81, 45, 0.13);
+  --green: #255f4b;
+  --gold: #d7a43b;
+  --shadow: 0 18px 50px rgba(30, 35, 32, 0.12);
+  --radius-xl: 28px;
+  --radius-lg: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(215, 164, 59, 0.25), transparent 28%),
+    radial-gradient(circle at top right, rgba(37, 95, 75, 0.16), transparent 24%),
+    linear-gradient(180deg, #f9f2e4 0%, #ede4d8 100%);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.page-shell {
+  width: min(1380px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 48px;
+}
+
+.hero {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1.4fr 0.9fr;
+  padding: 34px;
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(135deg, rgba(19, 32, 27, 0.96), rgba(37, 95, 75, 0.9)),
+    linear-gradient(135deg, rgba(196, 81, 45, 0.3), transparent);
+  color: #fff8ef;
+  box-shadow: var(--shadow);
+}
+
+.eyebrow,
+.section-kicker,
+.meta-label {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.76rem;
+  opacity: 0.75;
+}
+
+.hero h1 {
+  margin: 10px 0 14px;
+  font-family: "DM Serif Display", serif;
+  font-size: clamp(2.5rem, 5vw, 4.8rem);
+  line-height: 0.98;
+  max-width: 9ch;
+}
+
+.hero-text {
+  max-width: 58ch;
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: rgba(255, 248, 239, 0.86);
+}
+
+.hero-meta,
+.deadline-grid,
+.pool-editors,
+.player-grid,
+.results-board,
+.scoreboard-grid,
+.sync-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.hero-meta {
+  align-content: start;
+}
+
+.meta-card {
+  padding: 18px 20px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 248, 239, 0.1);
+  border: 1px solid rgba(255, 248, 239, 0.12);
+}
+
+.meta-card strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 1.05rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.panel {
+  grid-column: span 12;
+  background: var(--paper);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+}
+
+.section-heading,
+.pool-card-header,
+.player-card-header,
+.pick-group-header,
+.result-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 16px;
+}
+
+.section-heading h2,
+.pool-card-header h3,
+.player-card-header h3,
+.result-card-header h3,
+.deadline-card h3,
+.pick-group h4 {
+  margin: 6px 0 0;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ghost-button {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--ink);
+  padding: 10px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.danger-button {
+  color: #8a2d1a;
+}
+
+.scoreboard-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-top: 18px;
+}
+
+.score-card,
+.deadline-card,
+.pool-editor-card,
+.player-card,
+.result-card,
+.sync-card {
+  padding: 18px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 252, 247, 0.88);
+  border: 1px solid rgba(19, 32, 27, 0.08);
+}
+
+.score-card.is-leading {
+  background: linear-gradient(180deg, rgba(215, 164, 59, 0.23), rgba(255, 250, 242, 0.96));
+  border-color: rgba(215, 164, 59, 0.55);
+}
+
+.score-rank,
+.rules-copy p,
+.deadline-status,
+.player-lock-summary,
+.pick-group-lock,
+.result-card-header p,
+.pool-count,
+.pool-helper,
+.seed-note,
+.sync-card p,
+.sync-meta {
+  color: var(--muted);
+}
+
+.score-name {
+  display: block;
+  margin-top: 10px;
+  font-size: 1.45rem;
+  font-weight: 700;
+}
+
+.score-total {
+  margin-top: 12px;
+  font-size: 2.7rem;
+  font-weight: 700;
+}
+
+.score-breakdown {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.deadline-grid {
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  margin-top: 18px;
+}
+
+.sync-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-top: 18px;
+}
+
+.sync-card h3 {
+  margin: 0 0 8px;
+}
+
+.pool-editors {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  margin-top: 18px;
+}
+
+.deadline-card label,
+.pool-label,
+.result-select-label,
+.pick-select-label {
+  display: grid;
+  gap: 8px;
+}
+
+.deadline-card input,
+.pick-select-label select,
+.result-select-label select,
+.pool-label textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 13px;
+  background: #fffdf9;
+  color: var(--ink);
+}
+
+.pool-label textarea {
+  resize: vertical;
+  min-height: 170px;
+}
+
+.player-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-top: 18px;
+}
+
+.player-score-badge {
+  min-width: 72px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  text-align: center;
+  font-weight: 700;
+}
+
+.pick-groups,
+.pick-selects,
+.result-controls,
+.rules-copy {
+  display: grid;
+  gap: 12px;
+}
+
+.pick-groups,
+.results-board {
+  margin-top: 18px;
+}
+
+.pick-group {
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(242, 236, 226, 0.62);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  background: rgba(37, 95, 75, 0.12);
+  color: var(--green);
+}
+
+.status-pill.locked {
+  background: rgba(196, 81, 45, 0.12);
+  color: var(--accent);
+}
+
+.winner-list {
+  display: grid;
+  gap: 10px;
+}
+
+.winner-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(242, 236, 226, 0.62);
+}
+
+.winner-toggle input {
+  inline-size: 18px;
+  block-size: 18px;
+}
+
+.results-board {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.locked-select {
+  opacity: 0.6;
+}
+
+@media (max-width: 980px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-shell {
+    width: min(100% - 20px, 1380px);
+    padding-top: 12px;
+  }
+
+  .hero,
+  .panel {
+    padding: 18px;
+  }
+}
