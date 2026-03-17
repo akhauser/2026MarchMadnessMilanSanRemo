@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>March Madness x Milan-San Remo Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">This weekend challenge</p>
+        <h1>March Madness x Milan-San Remo</h1>
+        <p class="hero-text">
+          Basketball chaos meets spring monument racing. Everyone picks their squads, locks them before tip or
+          rollout, and the board updates live as results come in.
+        </p>
+      </div>
+      <div class="hero-meta">
+        <div class="meta-card">
+          <span class="meta-label">Players</span>
+          <strong>Drew, Will, Ciara, Madaline</strong>
+        </div>
+        <div class="meta-card">
+          <span class="meta-label">Scoring</span>
+          <strong>Winning team seed = points</strong>
+        </div>
+        <div class="meta-card">
+          <span class="meta-label">Race scoring</span>
+          <strong>15 / 10 / 5</strong>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel scoreboard-panel">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Live board</p>
+            <h2>Scoreboard</h2>
+          </div>
+          <button id="resetResultsBtn" class="ghost-button" type="button">Reset Results Only</button>
+        </div>
+        <div id="scoreboard" class="scoreboard-grid"></div>
+      </section>
+
+      <section class="panel sync-panel">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Live data</p>
+            <h2>API sync</h2>
+          </div>
+          <div class="button-row">
+            <button id="syncNowBtn" class="ghost-button" type="button">Sync Now</button>
+            <button id="toggleAutoSyncBtn" class="ghost-button" type="button">Auto-Sync On</button>
+          </div>
+        </div>
+        <div class="sync-grid">
+          <article class="sync-card">
+            <h3>Basketball source</h3>
+            <p>Public NCAA scoreboard data for Thursday, Friday, Saturday, and Sunday games.</p>
+          </article>
+          <article class="sync-card">
+            <h3>Cycling source</h3>
+            <p>TheSportsDB event, lineup, and results data for Milano-Sanremo.</p>
+          </article>
+          <article class="sync-card">
+            <h3>Sync status</h3>
+            <p id="syncStatusText">Waiting for first sync.</p>
+            <p id="syncMetaText" class="sync-meta">Manual fallback still works if an API misses data.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel rules-panel">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Lock rules</p>
+            <h2>Deadlines and format</h2>
+          </div>
+        </div>
+        <div class="deadline-grid" id="deadlineGrid"></div>
+        <div class="rules-copy">
+          <p>Each person chooses 2 Thursday teams, 2 Friday teams, 1 Saturday team, 1 Sunday team, and 1 Milano-Sanremo rider.</p>
+          <p>Basketball picks lock at the first game of that day. The rider pick locks at race start.</p>
+        </div>
+      </section>
+
+      <section class="panel pool-panel">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Pool setup</p>
+            <h2>Team and rider selectors</h2>
+          </div>
+          <div class="button-row">
+            <button id="seedDemoBtn" class="ghost-button" type="button">Load Starter Options</button>
+            <button id="resetAllBtn" class="ghost-button danger-button" type="button">Reset Everything</button>
+          </div>
+        </div>
+        <div id="poolEditors" class="pool-editors"></div>
+      </section>
+
+      <section class="panel picks-panel">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Make picks</p>
+            <h2>Player cards</h2>
+          </div>
+        </div>
+        <div id="playerCards" class="player-grid"></div>
+      </section>
+
+      <section class="panel results-panel">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Enter outcomes</p>
+            <h2>Game and race results</h2>
+          </div>
+        </div>
+        <div id="resultsBoard" class="results-board"></div>
+      </section>
+    </main>
+  </div>
+
+  <template id="poolEditorTemplate">
+    <article class="pool-editor-card">
+      <div class="pool-card-header">
+        <div>
+          <h3></h3>
+          <p class="pool-helper"></p>
+        </div>
+      </div>
+      <label class="pool-label">
+        <span></span>
+        <textarea rows="8" spellcheck="false"></textarea>
+      </label>
+      <div class="pool-count"></div>
+    </article>
+  </template>
+
+  <template id="deadlineTemplate">
+    <article class="deadline-card">
+      <h3></h3>
+      <label>
+        <span>Date</span>
+        <input type="date">
+      </label>
+      <label>
+        <span>Time</span>
+        <input type="time">
+      </label>
+      <p class="deadline-status"></p>
+    </article>
+  </template>
+
+  <template id="playerTemplate">
+    <article class="player-card">
+      <div class="player-card-header">
+        <div>
+          <h3></h3>
+          <p class="player-lock-summary"></p>
+        </div>
+        <div class="player-score-badge"></div>
+      </div>
+      <div class="pick-groups"></div>
+    </article>
+  </template>
+
+  <template id="pickGroupTemplate">
+    <section class="pick-group">
+      <div class="pick-group-header">
+        <h4></h4>
+        <span class="pick-group-lock"></span>
+      </div>
+      <div class="pick-selects"></div>
+    </section>
+  </template>
+
+  <template id="resultsTemplate">
+    <section class="result-card">
+      <div class="result-card-header">
+        <h3></h3>
+        <p></p>
+      </div>
+      <div class="result-controls"></div>
+    </section>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
